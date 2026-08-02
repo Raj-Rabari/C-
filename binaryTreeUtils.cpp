@@ -118,3 +118,60 @@ void preOrderIterative(TreeNode *root)
             s.push(currNode->left);
     }
 }
+
+void inOrderTraversalIterative(TreeNode *root)
+{
+    if (root == nullptr)
+    {
+        return;
+    }
+
+    std::stack<TreeNode *> s;
+    TreeNode *curr = root;
+
+    while (curr != nullptr || !s.empty())
+    {
+        if (curr != nullptr)
+        {
+            s.push(curr);
+            curr = curr->left;
+        }
+        else
+        {
+            TreeNode *node = s.top();
+            s.pop();
+            std::cout << node->val << " ";
+            curr = node->right;
+        }
+    }
+}
+
+void levelOrder(TreeNode *root)
+{
+    if (root == nullptr)
+        return;
+
+    std::queue<TreeNode *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        int levelSize = q.size();
+
+        for (int i = 0; i < levelSize; ++i)
+        {
+            TreeNode *currNode = q.front();
+            q.pop();
+
+            std::cout << currNode->val << " ";
+
+            if (currNode->left != nullptr)
+                q.push(currNode->left);
+
+            if (currNode->right != nullptr)
+                q.push(currNode->right);
+        }
+        std::cout << std::endl;
+    }
+    return;
+}
